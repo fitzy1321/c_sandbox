@@ -61,12 +61,12 @@ debug-gcc:
     @mkdir -p build
     {{GCC}} {{FLAGS}} -g -O0 src/main.* -o build/main-gcc-dbg
 
-diff:
-    @mkdir -p build
-    {{CC}} {{FLAGS}} src/main.* -o build/tmp-clang && ./build/tmp-clang > build/clang.out
-    {{GCC}} {{FLAGS}} src/main.* -o build/tmp-gcc && ./build/tmp-gcc > build/gcc.out
-    diff build/clang.out build/gcc.out || echo "⚠️ Outputs differ!"
-    rm -f build/tmp-* build/*.out
+# diff:
+#     @mkdir -p build
+#     {{CC}} {{FLAGS}} src/main.* -o build/tmp-clang && ./build/tmp-clang > build/clang.out
+#     {{GCC}} {{FLAGS}} src/main.* -o build/tmp-gcc && ./build/tmp-gcc > build/gcc.out
+#     diff build/clang.out build/gcc.out || echo "⚠️ Outputs differ!"
+#     rm -f build/tmp-* build/*.out
 
 clean:
     rm -rf build
