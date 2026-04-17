@@ -1,19 +1,14 @@
-_default:
+default:
     @just --list
 
-top-dir := justfile_directory()
-build-dir := top-dir / "build"
-src-dir := top-dir / "src"
-test-dir := top-dir / "tests"
-munit-dir := test-dir / "munit"
-
-# run some-arg='':
-#     @mkdir -p {{ build_dir }}
-#     @clang {{ src_dir }}/main.c -o {{ build_dir }}/main
-#     @./{{ build_dir }}/main {{ some-arg }}
+# run some_arg='':
+#     @mkdir -p build
+#     @clang src/main.c -o build/main
+#     @./build/main {{ some_arg }}
 # test:
-#     clang {{ test_dir }}/*.c {{ munit_dir }}/*.c -o build/test_runner
-#     ./build/test_runner
+#     @mkdir -p build/test
+#     clang test/*.c test/munit/*.c -o build/test/main-clang
+#     ./build/test/main-clang
 # Auto-detect C/C++ compiler commands
 
 CC := `if [ -f src/main.cpp ]; then echo 'clang++ -std=c++20'; else echo 'clang -std=c11'; fi`
@@ -23,8 +18,10 @@ GCC := `if [ -f src/main.cpp ]; then echo 'g++ -std=c++20'; else echo 'gcc -std=
 
 FLAGS := "-Wall -Wextra -Wpedantic -O2 -I src"
 
+# Easy run for clang. Same as run-clang task
 clang: build-clang run-clang
 
+# Easy run for gcc. Same as run-gcc task
 gcc: build-gcc run-gcc
 
 build-clang:
@@ -41,19 +38,18 @@ run-clang: build-clang
 run-gcc: build-gcc
     ./build/main-gcc
 
-# Debug builds
 debug-clang:
-    @mkdir -p build
-    {{ CC }} {{ FLAGS }} -g -O0 -fsanitize=address src/main.* -o build/main-clang-dbg
+    @mkdir -p build/debug
+    {{ CC }} {{ FLAGS }} -g -O0 -fsanitize=address src/main.* -o build/debug/main-clang
 
 debug-gcc:
-    @mkdir -p build
-    {{ GCC }} {{ FLAGS }} -g -O0 src/main.* -o build/main-gcc-dbg
+    @mkdir -p build/debug
+    {{ GCC }} {{ FLAGS }} -g -O0 src/main.* -o build/debug/main-gcc
 
 # diff:
 #     @mkdir -p build
-#     {{CC}} {{FLAGS}} src/main.* -o build/tmp-clang && ./build/tmp-clang > build/clang.out
-#     {{GCC}} {{FLAGS}} src/main.* -o build/tmp-gcc && ./build/tmp-gcc > build/gcc.out
+#     {{ CC }} {{ FLAGS }} src/main.* -o build/tmp-clang && ./build/tmp-clang > build/clang.out
+#     {{ GCC }} {{ FLAGS }} src/main.* -o build/tmp-gcc && ./build/tmp-gcc > build/gcc.out
 #     diff build/clang.out build/gcc.out || echo "⚠️ Outputs differ!"
 #     rm -f build/tmp-* build/*.out
 
@@ -72,9 +68,9 @@ test: build-clang build-gcc
     echo "✅ Both compilers passed"
 
 download-munit:
-    @mkdir -p {{ munit-dir }}
-    curl -L https://raw.githubusercontent.com/nemequ/munit/refs/heads/master/munit.h -o {{ munit-dir }}/munit.h
-    curl -L https://raw.githubusercontent.com/nemequ/munit/refs/heads/master/munit.c -o {{ munit-dir }}/munit.c
+    @mkdir -p test/munit
+    curl -L https://raw.githubusercontent.com/nemequ/munit/refs/heads/master/munit.h -o test/munit/munit.h
+    curl -L https://raw.githubusercontent.com/nemequ/munit/refs/heads/master/munit.c -o test/munit/munit.c
 
 self-fmt:
     just --unstable --fmt
