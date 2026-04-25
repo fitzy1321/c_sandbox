@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <lib.h>
 
 // typedef struct Coordinates {
 //     int x;
@@ -34,24 +35,7 @@
 //     }
 // }
 
-typedef struct {
-    int x;
-    int y;
-} Point;
 
-void point_dosomething(Point *p) {
-    p->x++;
-    p->y--;
-    return;
-}
-void secure_zero_memory(void *ptr, size_t len) {
-    if (ptr != NULL && len > 0) {
-        volatile unsigned char *vptr = (volatile unsigned char *)ptr;
-        while(len--) {
-            vptr[len] = 0;
-        }
-    }
-}
 
 int main(void) {
     // sizes_old_main();
