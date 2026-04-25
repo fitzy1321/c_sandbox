@@ -1,16 +1,10 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <lib.h>
 
-// typedef struct Coordinates {
-//     int x;
-//     int y;
-//     int z;
-// } coordinates_t;
 
-// void sizes_old_main(void) {
+// int main(int argc, char *argv) {
 //     printf("\nYo, I heard you like size_t, dawg ...\n");
 //     int arr[5] = {1,2,3,4,5};
 //     int val = arr[1];
@@ -21,35 +15,21 @@
 //     printf("size of size_t on this machine? = %zu\n", sizeof(size_t));
 //     printf("length of a str 'word' = %zu\n", strlen("word"));
 //     printf("end size stuff\n\n");
-// }
-
-// // only works with null terminated arrays ...
-// size_t char_arr_len(char **arr) {
-//     size_t count = 0;
-//     while(1) {
-//         char *v = arr[count];
+//     printf("number of args = %d. size of argv in bytes = %zu\n", argc, sizeof(argv));
+//     // size_t count = char_arr_len(argv);
+//     // printf("runtime calculated count of argv, not bytes = %zu\n", count);
+//     for (size_t i = 0; i < argc; i++) {
+//         char *v = argv[i];
 //         if (v == NULL) {
-//             return count;
+
 //         }
-//         count++;
+//         printf("arg # %zu, value = '%s'\n", i, argv[i]);
 //     }
+//     return 0;
 // }
-
-
 
 int main(void) {
-    // sizes_old_main();
-    // printf("number of args = %d. size of argv in bytes = %zu\n", argc, sizeof(argv));
-    // // size_t count = char_arr_len(argv);
-    // // printf("runtime calculated count of argv, not bytes = %zu\n", count);
-    // for (size_t i = 0; i < argc; i++) {
-    //     char *v = argv[i];
-    //     if (v == NULL) {
-
-    //     }
-    //     printf("arg # %zu, value = '%s'\n", i, argv[i]);
-    // }
-
+    printf("Messing with pointers and memory!!!\n");
     Point *p = (Point *)malloc(sizeof(Point));
     if (p == NULL) {
         printf("Memory allocation failed! Ending program ...");

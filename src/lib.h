@@ -7,6 +7,17 @@ typedef struct {
     int y;
 } Point;
 
+// only works with null terminated arrays ...
+size_t char_arr_len(char **arr) {
+    size_t count = 0;
+    while(1) {
+        char *v = arr[count];
+        if (v == NULL) {
+            return count;
+        }
+        count++;
+    }
+}
 
 void point_dosomething(Point *p) {
     p->x++;
