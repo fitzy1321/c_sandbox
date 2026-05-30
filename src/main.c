@@ -28,6 +28,23 @@
 //     return 0;
 // }
 
+#ifdef _WIN32
+    #include <direct.h>
+    #define m_getcwd _getcwd
+#else
+    #include <unistd.h>
+    #define m_getcwd getcwd
+#endif
+
+void print_cwd() {
+    char buff[FILENAME_MAX];
+    if (m_getcwd(buff, FILENAME_MAX) != NULL) {
+        printf("\nC execution Current working directory: %s\n", buff);
+    } else {
+        perror("Error getting cwd");
+    }
+}
+
 int main(void) {
     printf("Messing with pointers and memory!!!\n");
     Point *p = (Point *)malloc(sizeof(Point));
