@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <lib.h>
-
+#include "lib.h"
 
 // int main(int argc, char *argv) {
 //     printf("\nYo, I heard you like size_t, dawg ...\n");
@@ -35,6 +34,13 @@
     #include <unistd.h>
     #define m_getcwd getcwd
 #endif
+
+// example of using a scoped function marco.
+// Do while loop has block scope and expands to valid single line expressions/statements.
+#define something(x)    \
+    do {                \
+        int y = (x);    \
+    } while(0)
 
 void print_cwd() {
     char buff[FILENAME_MAX];
