@@ -75,3 +75,7 @@ download-munit:
 self-fmt:
     just --unstable --fmt
     just --unstable --fmt --check
+
+http-build-gcc:
+    gcc -Wall -Wextra -o build/http_demo http/http_client.c http/main.c
+    ./build/http_demo
